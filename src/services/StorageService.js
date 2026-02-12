@@ -16,6 +16,11 @@ const StorageService = {
   },
 
   deleteWorkout: (id) => {
+    const exercises = StorageService.getExercisesByWorkoutId(id);
+    exercises.forEach((exercise) => {
+      StorageService.deleteSetsByExerciseId(exercise.id);
+    });
+    StorageService.deleteExercisesByWorkoutId(id);
     return storage.delete('workouts', id);
   },
 
@@ -31,15 +36,43 @@ const StorageService = {
   },
 
   deleteExercise: (id) => {
+    StorageService.deleteSetsByExerciseId(id);
     return storage.delete('exercises', id);
   },
 
   deleteExercisesByWorkoutId: (workoutId) => {
     const allExercises = storage.getAll('exercises');
+    const toDelete = allExercises.filter(
+      (exercise) => exercise.workout_id === workoutId
+    );
+    toDelete.forEach((exercise) => {
+      StorageService.deleteSetsByExerciseId(exercise.id);
+    });
     const toKeep = allExercises.filter(
       (exercise) => exercise.workout_id !== workoutId
     );
     storage.replaceAll('exercises', toKeep);
+  },
+
+  getSetsByExerciseId: (exerciseId) => {
+    const allSets = storage.getAll('sets');
+    return allSets
+      .filter((set) => set.exercise_id === exerciseId)
+      .sort((a, b) => a.set_number - b.set_number);
+  },
+
+  saveSet: (set) => {
+    return storage.save('sets', set);
+  },
+
+  deleteSet: (id) => {
+    return storage.delete('sets', id);
+  },
+
+  deleteSetsByExerciseId: (exerciseId) => {
+    const allSets = storage.getAll('sets');
+    const toKeep = allSets.filter((set) => set.exercise_id !== exerciseId);
+    storage.replaceAll('sets', toKeep);
   },
 
   getAllPhotos: () => {
