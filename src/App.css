@@ -54,3 +54,255 @@ body {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.log-workout {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.log-workout h2 {
+  margin-bottom: 20px;
+  color: #a855f7;
+}
+
+.log-workout h3 {
+  margin-bottom: 15px;
+  color: #c084fc;
+}
+
+.workout-info {
+  background-color: #1c1a2e;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #a0a0b0;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #13111c;
+  border: 1px solid #2d2b42;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #a855f7;
+}
+
+.form-group textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.exercise-block {
+  background-color: #1c1a2e;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  border-left: 3px solid #a855f7;
+}
+
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.exercise-name-input {
+  flex: 1;
+  padding: 10px 12px;
+  background-color: #13111c;
+  border: 1px solid #2d2b42;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.exercise-name-input:focus {
+  border-color: #a855f7;
+}
+
+.sets-table {
+  margin-bottom: 10px;
+}
+
+.sets-header {
+  display: flex;
+  gap: 10px;
+  padding: 5px 0;
+  color: #a0a0b0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #2d2b42;
+  margin-bottom: 8px;
+}
+
+.set-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.set-col {
+  width: 40px;
+  text-align: center;
+  color: #a855f7;
+  font-weight: bold;
+}
+
+.weight-col {
+  width: 100px;
+  padding: 8px;
+  background-color: #13111c;
+  border: 1px solid #2d2b42;
+  border-radius: 6px;
+  color: #e0e0e0;
+  text-align: center;
+  outline: none;
+}
+
+.weight-col:focus {
+  border-color: #a855f7;
+}
+
+.unit-col {
+  width: 65px;
+  padding: 8px;
+  background-color: #13111c;
+  border: 1px solid #2d2b42;
+  border-radius: 6px;
+  color: #e0e0e0;
+  outline: none;
+}
+
+.reps-col {
+  width: 80px;
+  padding: 8px;
+  background-color: #13111c;
+  border: 1px solid #2d2b42;
+  border-radius: 6px;
+  color: #e0e0e0;
+  text-align: center;
+  outline: none;
+}
+
+.reps-col:focus {
+  border-color: #a855f7;
+}
+
+.action-col {
+  width: 30px;
+}
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.btn-remove-set {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove-set:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.btn-add-set {
+  background: none;
+  border: 1px dashed #2d2b42;
+  color: #a0a0b0;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.btn-add-set:hover {
+  border-color: #a855f7;
+  color: #a855f7;
+}
+
+.btn-add-exercise {
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: 2px dashed #2d2b42;
+  color: #a0a0b0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.btn-add-exercise:hover {
+  border-color: #a855f7;
+  color: #a855f7;
+}
+
+.btn-save-workout {
+  width: 100%;
+  padding: 14px;
+  background-color: #a855f7;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-save-workout:hover {
+  background-color: #9333ea;
+}
+
+.success-msg {
+  text-align: center;
+  color: #4ade80;
+  margin-top: 15px;
+}
+
+.error-msg {
+  text-align: center;
+  color: #ef4444;
+  margin-top: 15px;
+}
