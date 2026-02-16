@@ -4,7 +4,7 @@ import StorageService from '../services/StorageService';
 function Progress() {
   const [allExerciseNames, setAllExerciseNames] = useState([]);
   const [recentExercises, setRecentExercises] = useState([]);
-  const [selectedExercise, setSelectedExercise] = useState(null);
+  const [selectedExercise, setSelectedExercise] = useState('');
   const [progressData, setProgressData] = useState([]);
   const [matchedPhoto, setMatchedPhoto] = useState(null);
 
@@ -32,7 +32,7 @@ function Progress() {
       });
     });
 
-const sortedNames = Object.keys(exerciseMap).sort();
+    const sortedNames = Object.keys(exerciseMap).sort();
     setAllExerciseNames(sortedNames);
     setRecentExercises(recentList);
   };
@@ -54,12 +54,12 @@ const sortedNames = Object.keys(exerciseMap).sort();
 
         if (sets.length > 0) {
           const heaviest = sets.reduce((max, set) =>
-          Number(set.weight) > Number(max.weight) ? set : max
+            Number(set.weight) > Number(max.weight) ? set : max,
           );
 
           const totalVolume = sets.reduce(
             (sum, set) => sum + Number(set.weight) * Number(set.reps),
-            0
+            0,
           );
 
           data.push({
@@ -84,17 +84,17 @@ const sortedNames = Object.keys(exerciseMap).sort();
       const latestWorkoutDate = data[data.length - 1].date;
       const closest = photos.reduce((prev, curr) => {
         const prevDiff = Math.abs(
-          new Date(prev.date) - new Date(latestWorkoutDate)
+          new Date(prev.date) - new Date(latestWorkoutDate),
         );
         const currDiff = Math.abs(
-          new Date(curr.date) - new Date(latestWorkoutDate)
+          new Date(curr.date) - new Date(latestWorkoutDate),
         );
         return currDiff < prevDiff ? curr : prev;
       });
       // This only shows photos if it is within 7 days of the last workout
-const daysDiff =
-Math.abs(new Date(closest.date) - new Date(latestWorkoutDate)) /
-(1000 * 60 * 60 * 24);
+      const daysDiff =
+        Math.abs(new Date(closest.date) - new Date(latestWorkoutDate)) /
+        (1000 * 60 * 60 * 24);
       if (daysDiff <= 7) {
         setMatchedPhoto(closest);
       } else {
@@ -114,99 +114,171 @@ Math.abs(new Date(closest.date) - new Date(latestWorkoutDate)) /
     });
   };
 
-    const getPersonalBest = () => {
-      if (progressData.length === 0) return null;
-      return progressData.reduce((best, entry) =>
-      entry.heaviestWeight > max.heaviestWeight ? entry : max
-      );
-    };
+  const getPersonalBest = () => {
+    if (progressData.length === 0) return null;
+    return progressData.reduce((max, entry) =>
+      entry.heaviestWeight > max.heaviestWeight ? entry : max,
+    );
+  };
 
-    const personalBest = selectedExercise ? getPersonalBest() : null;
+  const personalBest = selectedExercise ? getPersonalBest() : null;
 
-    return (
+  return (
     <div className="progress-page">
       <h2>Progress</h2>
 
-// Exercise slection
-        {}
-        <div className="exercise-selector">
+      {/*Exercise Selector*/}
+      <div className="exercise-selector">
         <div className="form-group">
-        <label>Select Exercise:</label>
-        <select
-        value={selectedExercise}
-        onChange={(e) => selectExercise(e.target.value)}
-        className='exercise-dropdown'
-        >
-        <option value="">-- Choose an Exercise --</option>
-        {allExerciseNames.map((name) => (
-        <option key={name} value={name}>
-        {name}
-        </option>
-        ))}
-        </select>
+          <label>Select Exercise:</label>
+          <select
+            value={selectedExercise}
+            onChange={(e) => selectExercise(e.target.value)}
+            className="exercise-dropdown"
+          >
+            <option value="">-- Choose an Exercise --</option>
+            {allExerciseNames.map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {recentExercises.length > 0 && (
-        <div className="recent-exercises">
-        <label>Recent Exercises</label>
-        <div className="exercise-tiles">
-        {recentExercises.map((name) => (
-        <button
-        key={name}
-        className={`exercise-tile ${selectedExercise === name ? 'active' : ''}`}
-        onClick={() => selectExercise(name)}
-        >
-        {name}
-        </button>
-        ))}
-        </div>
-        </div>
+          <div className="recent-exercises">
+            <label>Recent Exercises</label>
+            <div className="exercise-tiles">
+              {recentExercises.map((name) => (
+                <button
+                  key={name}
+                  className={`exercise-tile ${selectedExercise === name ? 'active' : ''}`}
+                  onClick={() => selectExercise(name)}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
-        </div>
+      </div>
 
-        {/*Progress Count*/}
-        {selectedExercise && (
+      {/*Progress Count*/}
+      {selectedExercise && (
         <div className="progress-content">
-        {/*Personal Best*/}
-        {personalBest && (
-          <div className="personal-best-banner">
-          <span className='pb-label'>Personal Best</span>
-          <span className='pb-value'>
-          {personalBest.heaviestWeight}
-          {personalBest.unit} x {personalBest.heaviestReps} reps
-          </span>
-          <span className="pb-date">
-          {formatDate(personalBest.date)}
-          </span>
-          </div>
-        )}
+          {/*Personal Best*/}
+          {personalBest && (
+            <div className="personal-best-banner">
+              <span className="pb-label">Personal Best</span>
+              <span className="pb-value">
+                {personalBest.heaviestWeight}
+                {personalBest.unit} x {personalBest.heaviestReps} reps
+              </span>
+              <span className="pb-date">{formatDate(personalBest.date)}</span>
+            </div>
+          )}
 
-        {/*Split layout*/}
-        <div
-        className={`progress-layout ${matchedPhoto ? 'has-photo' : 'no-photo'}`}
-        >
-        {/*Photo Section*/}
-        {matchedPhoto && (
-        <div className="progress-photo-section">
-        <h3>Latest Photo</h3>
-        {matchedPhoto.image ? (
-        <img
-        src={matchedPhoto.image}
-        alt="Progress"
-        className="progress-photo"
-        />
-        ) : (
-          <div className="photo-placeholder">
-          <p>Photo saved but preview not available</p>
+          {/*Split layout*/}
+          <div
+            className={`progress-layout ${matchedPhoto ? 'has-photo' : 'no-photo'}`}
+          >
+            {/*Photo Section*/}
+            {matchedPhoto && (
+              <div className="progress-photo-section">
+                <h3>Latest Photo</h3>
+                {matchedPhoto.image ? (
+                  <img
+                    src={matchedPhoto.image}
+                    alt="Progress"
+                    className="progress-photo"
+                  />
+                ) : (
+                  <div className="photo-placeholder">
+                    <p>Photo saved but preview not available</p>
+                  </div>
+                )}
+                <p className="photo-date">{formatDate(matchedPhoto.date)}</p>
+                {matchedPhoto.tags && (
+                  <p className="photo-tags">{matchedPhoto.tags}</p>
+                )}
+              </div>
+            )}
+
+            {/* Progression Table */}
+            <div className="progress-table-section">
+              <h3>Weight Progression — {selectedExercise}</h3>
+              {progressData.length === 0 ? (
+                <p className="empty-progress">No data yet for this exercise.</p>
+              ) : (
+                <table className="progress-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Workout</th>
+                      <th>Top Weight</th>
+                      <th>Reps</th>
+                      <th>Sets</th>
+                      <th>Volume</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {progressData.map((entry, index) => {
+                      const prevWeight =
+                        index > 0
+                          ? progressData[index - 1].heaviestWeight
+                          : null;
+                      const weightChange =
+                        prevWeight !== null
+                          ? entry.heaviestWeight - prevWeight
+                          : 0;
+
+                      return (
+                        <tr key={index}>
+                          <td>{formatDate(entry.date)}</td>
+                          <td>{entry.workoutName}</td>
+                          <td className="weight-cell">
+                            {entry.heaviestWeight}
+                            {entry.unit}
+                            {weightChange > 0 && (
+                              <span className="weight-up">
+                                {' '}
+                                ↑{weightChange}
+                              </span>
+                            )}
+                            {weightChange < 0 && (
+                              <span className="weight-down">
+                                {' '}
+                                ↓{Math.abs(weightChange)}
+                              </span>
+                            )}
+                          </td>
+                          <td>{entry.heaviestReps}</td>
+                          <td>{entry.totalSets}</td>
+                          <td>
+                            {entry.totalVolume}
+                            {entry.unit}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
+            </div>
           </div>
-        )}
-        <p className="photo-date">
-        {formatDate(matchedPhoto.date)}
-        </p>
-        {matchedPhoto.tage && (
-        <p className="photo-tags">{matchedPhoto.tags}</p>
-        )}
         </div>
-        )}
+      )}
+
+      {!selectedExercise && allExerciseNames.length === 0 && (
+        <div className="empty-state">
+          <p>No exercises logged yet.</p>
+          <p>
+            Head to <strong>Log Workout</strong> to start tracking!
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default Progress;
