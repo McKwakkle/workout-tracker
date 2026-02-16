@@ -78,6 +78,7 @@ body {
   padding: 20px;
   border-radius: 12px;
   margin-bottom: 25px;
+  border-left: 3px solid #a855f7;
 }
 
 .form-group {
@@ -377,6 +378,15 @@ empty-state strong {
 
 /* Workout Details Styles */
 .workout-detail {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  border-top: 1px solid transparent;
+  transition: max-height 1s ease, padding 1s ease, border-color 1s ease;
+}
+
+.workout-detail.expanded {
+  max-height: 1000px; /* Large enough to show all content */
   padding: 0 20px 20px;
   border-top: 1px solid #2d2b42;
 }

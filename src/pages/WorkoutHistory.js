@@ -109,11 +109,12 @@ function WorkoutHistory() {
                 <p className="workout-notes">{workout.notes}</p>
               )}
 
-              {expandedId === workout.id && workoutDetails[workout.id] && (
-                <div className="workout-detail">
+              <div className={`workout-detail ${expandedId === workout.id ? 'expanded' : ''}`}>
+                {workoutDetails[workout.id] && (
+                  <>
                   {workoutDetails[workout.id].length === 0 ? (
                     <p className="no-exercises">
-                      No exercises recorded for this workout.
+                    No exercises recorded for this workout.
                     </p>
                   ) : (
                     workoutDetails[workout.id].map((exercise) => (
@@ -122,13 +123,13 @@ function WorkoutHistory() {
                         <div className="sets-detail">
                           {exercise.sets.map((set) => (
                             <div className="set-detail-row" key={set.id}>
-                              <span className="set-number">
-                                Set {set.set_number}
-                              </span>
-                              <span className="set-info">
-                                {set.weight}
-                                {set.unit} × {set.reps} reps
-                              </span>
+                            <span className="set-number">
+                              Set {set.set_number}
+                            </span>
+                            <span className="set-info">
+                            {set.weight}
+                            {set.unit} x {set.reps} reps
+                            </span>
                             </div>
                           ))}
                         </div>
@@ -140,18 +141,19 @@ function WorkoutHistory() {
                     <button
                       className="btn-edit"
                       onClick={() => editWorkout(workout.id)}
-                    >
+                      >
                       Edit Workout
-                    </button>
+                      </button>
                     <button
                       className="btn-delete"
                       onClick={() => deleteWorkout(workout.id)}
-                    >
+                      >
                       Delete Workout
-                    </button>
+                      </button>
                   </div>
-                </div>
-              )}
+                  </>
+                )}
+              </div>
             </div>
           ))}
         </div>
