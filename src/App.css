@@ -386,7 +386,7 @@ empty-state strong {
 }
 
 .workout-detail.expanded {
-  max-height: 1000px; /* Large enough to show all content */
+  max-height: 1000px;
   padding: 0 20px 20px;
   border-top: 1px solid #2d2b42;
 }
