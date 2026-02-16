@@ -473,7 +473,7 @@ empty-state strong {
   width: 100%;
   padding: 12px;
   background: none;
-  color:#a0a0b0;
+  color: #a0a0b0;
   border: 1px solid #2d2b42;
   border-radius: 12px;
   cursor: pointer;
@@ -485,4 +485,228 @@ empty-state strong {
 .btn-cancel-edit:hover {
   border-color: #ef4444;
   color: #ef4444;
+}
+
+/*Progress page styles*/
+
+.progress-page {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.progress-page h2 {
+  margin-bottom: 20px;
+  color: #a855f7;
+}
+
+.progress-page h3 {
+  color: #c084fc;
+  margin-bottom: 15px;
+}
+
+/* Exercise Selector */
+
+.exercise-selector {
+  background-color: #1c1a2e;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border-left: 3px solid #a855f7;
+}
+
+.exercise-dropdown {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #13111c;
+  border: 1px solid #2d2b42;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.exercise-dropdown:focus {
+  border-color: #a855f7;
+}
+
+.recent-exercises {
+  margin-top: 15px;
+}
+
+.recent-exercises label {
+  display: block;
+  margin-bottom: 8px;
+  color: #a0a0b0;
+  font-size: 0.9rem;
+}
+
+.exercise-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.exercise-tile {
+  padding: 8px 16px;
+  background-color: #13111c;
+  border: 1px solid #2d2b42;
+  border-radius: 8px;
+  color: #a0a0b0;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.exercise-tile:hover {
+  border-color: #a855f7;
+  color: #a855f7;
+}
+
+.exercise-tile.active {
+  background-color: rgba(168, 85, 247, 0.15);
+  border-color: #a855f7;
+  color: #a855f7;
+}
+
+/* Personal best banner */
+
+.personal-best-banner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.05));
+  border: 1px solid #a855f7;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+}
+
+.pb-label {
+  background-color: #a855f7;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.pb-value {
+  color: #e0e0e0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.pb-date {
+  color: #a0a0b0;
+  font-size: 0.85rem;
+  margin-left: auto;
+}
+
+/*Progress layout*/
+
+.progress-layout {
+  display: flex;
+  gap: 25px;
+}
+
+.progress-layout.no-photo {
+  display: block;
+}
+
+.progress-layout.has-photo .progress-photo-section {
+  flex: 0 0 300px;
+}
+
+.progress-layout.has-photo .progress-table-section {
+  flex: 1;
+}
+
+/*photo section*/
+
+.progress-photo-section {
+  background-color: #1c1a2e;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 3px solid #a855f7;
+}
+
+.progress-photo {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.photo-placeholder {
+  background-color: #13111c;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+  color: #a0a0b0;
+}
+
+.photo-date {
+  color: #a0a0b0;
+  font-size: 0.85rem;
+}
+
+.photo-tags {
+  color: #a0a0b0;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/*progress table*/
+
+.progress-table-section {
+  background-color: #1c1a2e;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 3px solid #a855f7;
+}
+
+.progress-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.progress-table th {
+  text-align: left;
+  padding: 10px 12px;
+  background-color: #a0a0b0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #2d2b42;
+}
+
+.progress-table td {
+  padding: 10px 12px;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(45, 43, 66, 0.5);
+}
+
+.progress-table tr:hover {
+  background-color: rgba(168, 85, 247, 0.05);
+}
+
+.weight-cell {
+  font-weight: 600;
+}
+
+.weight-up {
+  color: #4ade80;
+  font-size: 0.8rem;
+}
+
+.weight-down {
+  color: #ef4444;
+  font-size: 0.8rem;
+}
+
+.empty-progress {
+  color: #a0a0b0;
+  font-style: italic;
+  padding: 20px 0;
 }
