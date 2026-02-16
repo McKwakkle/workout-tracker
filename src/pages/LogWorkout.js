@@ -87,7 +87,7 @@ function LogWorkout() {
 
 // Remove exercise
   const removeExercise = (index) => {
-    if  (exercises.length === 1) {return;
+    if  (exercises.length === 1) return;
     const updatedExercises = exercises.filter((_, i) => i !== index);
     setExercises(updatedExercises);
   };
@@ -107,4 +107,143 @@ function LogWorkout() {
         notes: notes,
       });
 
-      
+      StorageService.deleteExercisesByWorkoutId(workoutId);
+
+      exercises.forEach((exercise) => {
+        if (exercise.name.trim()) {
+          const saveExercise = StorageService.saveExercise({
+            workout_id: workoutId,
+            name: exercise.name,
+          });
+
+          exercise.sets.forEach((set) => {
+            if (set.weight || set.reps) {
+              StorageService.saveSet({
+                exercise_id: saveExercise.id,
+                set_number: set.set_number,
+                reps: Number(set.reps) || 0,
+                weight: Number(set.weight) || 0,
+                unit: set.unit,
+              });
+            }
+          });
+        }
+      });
+
+      setSaveMessage('Workout saved successfully');
+      setTimeout(() => {
+        navigate('/history');
+      }, 1500);
+    } else {
+      //Create new workout
+      const savedWorkout = StorageService.saveWorkout({
+        date: workoutDate,
+        name: workoutName,
+        notes: notes,
+      });
+
+      exercises.forEach((exercise) => {
+        if (exercise.name.trim()) {
+          const savedExercise = StorageService.saveExercise({
+            workout_id: savedWorkout.id,
+            name: exercise.name,
+          });
+
+          exercise.sets.forEach((set) => {
+            if (set.weight || set.reps) {
+              StorageService.saveSet({
+                exercise_id: savedExercise.id,
+                set_number: set.set_number,
+                reps: Number(set.reps) || 0,
+                weight: Number(set.weight) || 0,
+                unit: set.unit,
+              });
+            }
+          });
+        }
+      });
+
+      setSaveMessage('Workout saved successfully');
+      resetForm();
+      setTimeout(() => setSaveMessage(''), 3000);
+    }
+  };
+
+  return (
+    <div className="log-workout">
+      <h2>{editMode ? 'Edit Workout' : 'Log Workout'}</h2>
+
+      <div className="workout-info">
+      <div className="form-group">
+      <label>Workout Name</label>
+      <input
+        type="text"
+        placeholder='e.g. Shoulders + triceps'
+        value={workoutName}
+        onChange={(e) => setWorkoutName(e.target.value)}
+      />
+      </div>
+
+      <div className="form-group">
+      <label>Date</label>
+      <input
+        type="date"
+        value={workoutDate}
+        onChange={(e) => setWorkoutDate(e.target.value)}
+      />
+      </div>
+
+      <div className="form-group">
+      <label>Notes (Optional)</label>
+      <textarea
+        placeholder='How did the session feel?'
+        value={notes}
+        onChange={(e) => setNotes(e.target.value)}
+      />
+      </div>
+      </div>
+
+      <div className="exercises-section">
+        <h3>Exercises</h3>
+        {exercises.map((exercise, index) => (
+          <ExerciseBlock
+            key={index}
+            exercise={exercise}
+            onUpdate={(updated) => updateExercise(index, updated)}
+            onRemove={() => removeExercise(index)}
+          />
+        ))}
+        <button className="btn-add-exercise" onClick={addExercise}>
+          + Add Exercise
+        </button>
+      </div>
+
+      <button className="btn-save-workout" onClick={saveWorkout}>
+      {editMode ? 'Update Workout' : 'Save Workout'}
+      </button>
+
+      {editMode && (
+        <button 
+        className="btn-cancel-edit"
+        onClick={() => navigate('/history')}
+        >
+          Cancel
+        </button>
+      )}
+
+      {saveMessage && (
+        <p
+        className={
+          saveMessage.includes('success') || saveMessage.includes('updated')
+          ? 'success-msg'
+          : 'error-msg'
+        }
+        >
+          {saveMessage}
+        </p>
+      )}
+    </div>
+  );
+}
+
+export default LogWorkout;
