@@ -237,6 +237,61 @@ function Photos() {
           </button>
         </div>
       )}
+
+      {/*Comparison View*/}
+      {compareMode && (
+        <div className="comparison-view">
+          <h3>Side by Side Comparison</h3>
+          <p className="comparison-instruction">
+            Select two photos from the gallery below to compare them.
+          </p>
+          <div className="comparison-panels">
+            <div className="compar-panel">
+              {comparePhotos[0] ? (
+                <>
+                  <img
+                    src={comparePhotos[0].image}
+                    alt="Compare 1"
+                    className="compare-photo"
+                  />
+                  <p className="compare-date">
+                    {formatDate(comparePhotos[0].date)}
+                  </p>
+                  {comparePhotos[0].tags && (
+                    <p className="compare-tags">{comparePhotos[0].tags}</p>
+                  )}
+                </>
+              ) : (
+                <div className="compare-empty">
+                  <p>Select photo 1</p>
+                </div>
+              )}
+            </div>
+
+            <div className="compare-panel">
+              {comparePhotos[1] ? (
+                <>
+                  <img
+                    src={comparePhotos[1].image}
+                    alt="Compare 2"
+                    className="compare-photo"
+                  />
+                  <p className="compare-date">
+                    {formatDate(comparePhotos[1].date)}
+                  </p>
+                  {comparePhotos[1].tags && (
+                    <p className="compare-tags">{comparePhotos[1].tags}</p>
+                  )}
+                </>
+              ) : (
+                <div className="compare-empty">
+                  <p>Select photos 2</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
