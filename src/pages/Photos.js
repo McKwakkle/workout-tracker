@@ -23,9 +23,10 @@ function Photos() {
     allPhotos.sort((a, b) => new Date(b.date) - new Date(a.date));
     setPhotos(allPhotos);
   };
-  // Setting up image compression
+
   // Doing it for local development
   // Might keep it in for later
+
   const compressImage = (file, maxSizeMB, callback) => {
     const maxSize = maxSizeMB * 1024 * 1024;
     const img = new Image();
@@ -36,6 +37,7 @@ function Photos() {
         callback(reader.result);
         return;
       }
+
       img.onload = () => {
         const canvas = document.createElement('canvas');
 
@@ -68,7 +70,7 @@ function Photos() {
     reader.readAsDataURL(file);
   };
 
-  // Development: compresses to 2MB for localStorage
+  // Development: compress to 2MB for localStorage
   // Increase this limit when migrated to PHP/Firebase backend
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -107,7 +109,7 @@ function Photos() {
   };
 
   const deletePhoto = (photoId) => {
-    if (window.confirm('Are you sure want to delete this photo?')) {
+    if (window.confirm('Are you sure you want to delete this photo?')) {
       StorageService.deletePhoto(photoId);
       loadPhotos();
       setComparePhotos((prev) =>
@@ -148,6 +150,7 @@ function Photos() {
   return (
     <div className="photos-page">
       <h2>Progress Photos</h2>
+
       {/*Upload Section*/}
       <div className="photo-upload-section">
         <h3>Upload Photo</h3>
@@ -166,7 +169,6 @@ function Photos() {
                 </div>
               )}
             </div>
-
             <input
               type="file"
               accept="image/*"
@@ -175,6 +177,7 @@ function Photos() {
               style={{ display: 'none' }}
             />
           </div>
+
           <div className="upload-right">
             <div className="form-group">
               <label>Date</label>
@@ -189,7 +192,7 @@ function Photos() {
               <label>Tags</label>
               <input
                 type="text"
-                placeholder="e.g. chest dat, week 4, front pose"
+                placeholder="e.g. chest day, week 4, front pose"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
               />
@@ -242,11 +245,11 @@ function Photos() {
       {compareMode && (
         <div className="comparison-view">
           <h3>Side by Side Comparison</h3>
-          <p className="comparison-instruction">
+          <p className="compare-instruction">
             Select two photos from the gallery below to compare them.
           </p>
           <div className="comparison-panels">
-            <div className="compar-panel">
+            <div className="compare-panel">
               {comparePhotos[0] ? (
                 <>
                   <img
@@ -285,13 +288,65 @@ function Photos() {
                 </>
               ) : (
                 <div className="compare-empty">
-                  <p>Select photos 2</p>
+                  <p>Select photo 2</p>
                 </div>
               )}
             </div>
           </div>
         </div>
       )}
+
+      {/*Photo Gallery*/}
+      <div className="photo-gallery">
+        <h3>Gallery</h3>
+        {photos.length === 0 ? (
+          <div className="empty-state">
+            <p>No photos yet. Upload your first progress photo above!</p>
+          </div>
+        ) : (
+          <div className="gallery-grid">
+            {photos.map((photo) => {
+              const compareSlot = compareMode ? getCompareSlot(photo.id) : 0;
+
+              return (
+                <div
+                  className={`gallery-card ${compareMode ? 'selectable' : ''} ${compareSlot > 0 ? 'selected' : ''}`}
+                  key={photo.id}
+                  onClick={() => compareMode && toggleCompare(photo)}
+                >
+                  {compareSlot > 0 && (
+                    <div className="compare-badge">{compareSlot}</div>
+                  )}
+                  <img
+                    src={photo.image}
+                    alt="Progress"
+                    className="gallery-photo"
+                  />
+                  <div className="gallery-info">
+                    <span className="gallery-date">
+                      {formatDate(photo.date)}
+                    </span>
+                    {photo.tags && (
+                      <span className="gallery-tags">{photo.tags}</span>
+                    )}
+                    {photo.notes && (
+                      <p className="gallery-notes">{photo.notes}</p>
+                    )}
+                  </div>
+                  {!compareMode && (
+                    <button
+                      className="btn-delete-photo"
+                      onClick={() => deletePhoto(photo.id)}
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
