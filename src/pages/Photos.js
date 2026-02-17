@@ -54,7 +54,7 @@ function Photos() {
         let quality = 0.8;
         let result = canvas.toDataURL('image/jpeg', quality);
 
-        while (result.length > maxSize * 1.37 && quality > 0.1 ) {
+        while (result.length > maxSize * 1.37 && quality > 0.1) {
           quality -= 0.1;
           result = canvas.toDataURL('image/jpeg', quality);
         }
@@ -75,7 +75,7 @@ function Photos() {
     if (!file) return;
 
     compressImage(file, 2, (compressedImage) => {
-      setPreview(compressImage);
+      setPreview(compressedImage);
       setSaveMessage('');
     });
   };
@@ -111,11 +111,134 @@ function Photos() {
       StorageService.deletePhoto(photoId);
       loadPhotos();
       setComparePhotos((prev) =>
-      prev.map((p) => (p && p.id === photoId ? null : p))
+        prev.map((p) => (p && p.id === photoId ? null : p)),
       );
     }
   };
 
+  const toggleCompare = (photo) => {
+    setComparePhotos((prev) => {
+      if (prev[0] && prev[0].id === photo.id) {
+        return [null, prev[1]];
+      }
+      if (prev[1] && prev[1].id === photo.id) {
+        return [prev[0], null];
+      }
+      if (!prev[0]) return [photo, prev[1]];
+      if (!prev[1]) return [prev[0], photo];
+      return [photo, prev[1]];
+    });
+  };
+
+  const getCompareSlot = (photoId) => {
+    if (comparePhotos[0] && comparePhotos[0].id === photoId) return 1;
+    if (comparePhotos[1] && comparePhotos[1].id === photoId) return 2;
+    return 0;
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString + 'T00:00:00');
+    return date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  };
+
+  return (
+    <div className="photos-page">
+      <h2>Progress Photos</h2>
+      {/*Upload Section*/}
+      <div className="photo-upload-section">
+        <h3>Upload Photo</h3>
+        <div className="upload-form">
+          <div className="upload-left">
+            <div
+              className="upload-area"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {preview ? (
+                <img src={preview} alt="Preview" className="upload-preview" />
+              ) : (
+                <div className="upload-placeholder">
+                  <span className="upload-icon">📷</span>
+                  <p>Click to select a photo</p>
+                </div>
+              )}
+            </div>
+
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handleFileSelect}
+              style={{ display: 'none' }}
+            />
+          </div>
+          <div className="upload-right">
+            <div className="form-group">
+              <label>Date</label>
+              <input
+                type="date"
+                value={photoDate}
+                onChange={(e) => setPhotoDate(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Tags</label>
+              <input
+                type="text"
+                placeholder="e.g. chest dat, week 4, front pose"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Notes (optional)</label>
+              <textarea
+                placeholder="Any notes about this photo"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              />
+            </div>
+
+            <button className="btn-save-photo" onClick={savePhoto}>
+              Save Photo
+            </button>
+          </div>
+        </div>
+
+        {saveMessage && (
+          <p
+            className={
+              saveMessage.includes('success') ? 'success-msg' : 'error-msg'
+            }
+          >
+            {saveMessage}
+          </p>
+        )}
+      </div>
+
+      {/*Comparison Toggle*/}
+      {photos.length >= 2 && (
+        <div className="compare-toggle">
+          <button
+            className={`btn-compare-toggle ${compareMode ? 'active' : ''}`}
+            onClick={() => {
+              setCompareMode(!compareMode);
+              setComparePhotos([null, null]);
+            }}
+          >
+            {compareMode
+              ? 'Exit Comparison Mode'
+              : 'Compare Photos Side by Side'}
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Photos;
