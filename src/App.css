@@ -710,3 +710,295 @@ empty-state strong {
   font-style: italic;
   padding: 20px 0;
 }
+
+/*Photo page*/
+
+.photo-page {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.photos-page h2 {
+  margin-bottom: 20px;
+  color: #a855f7;
+}
+
+.photo-page h3 {
+  color: #c084fc;
+  margin-bottom: 15px;
+}
+
+.photo-upload-section {
+  background-color: #1c1a2e;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border-left: 3px solid #a855f7;
+}
+
+.upload-form {
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+}
+
+.upload-left {
+  flex: 0 0 220px;
+}
+
+.upload-right {
+  flex: 1;
+}
+
+.upload-area {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background-color: #13111c;
+  border: 2px dashed #2d2b42;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.upload-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-placeholder {
+  text-align: center;
+  color: #a0a0b0;
+  padding: 20px;
+}
+
+.upload-icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.upload-placeholder p {
+  font-size: 0.85rem;
+}
+
+.btn-save-photo {
+  width: 100%;
+  padding: 12px;
+  background-color: #a855f7;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+}
+
+.btn-save-photo:hover {
+  background-color: #9333ea;
+}
+
+.compare-toggle {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.btn-compare-toggle {
+  padding: 9px 20px;
+  background-color: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+  border: 1px solid #a855f7;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-compare-toggle:hover {
+  background-color: rgba(168, 85, 247, 0.2);
+}
+
+.btn-compare-taggle.active {
+  background-color: #a855f7;
+  color: white;
+}
+
+.comparison-view {
+  background-color: #1c1a2e;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border-left: 3px solid #a855f7;
+}
+
+.compare-instruction {
+  color: #a0a0b0;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.comparison-panels {
+  display: flex;
+  gap:20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.compare-panel {
+  flex: 1;
+  background-color: #13111c;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #2d2b42;
+}
+
+.compare-photo {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+
+.compare-date {
+  color: #a0a0b0;
+  font-size: 0.85rem;
+  padding: 8px 12px 2px;
+}
+
+.compare-tags {
+  color: #a855f7;
+  font-size: 0.8rem;
+  padding: 0 12px 10px;
+}
+
+.compare-empty {
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a0a0b0;
+  font-size: 0.9rem;
+  border: 2px dashed #2d2b42;
+  border-radius: 10px;
+}
+
+.photo-gallery {
+  background-color: #1c1a2e;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 3px solid #a855f7;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.gallery-card {
+  background-color: #13111c;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #2d2b42;
+  position: relative;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.gallery-card:hover {
+  border-color: #a855f7;
+}
+
+.gallery-card.selectable:hover {
+  transform: scale(1.02);
+}
+
+.gallery-card.selected {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.4);
+}
+
+.compare-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #a855f7;
+  color: white;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  z-index: 1;
+}
+
+.gallery-photo {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-info {
+  padding: 10px 12px;
+}
+
+.gallery-date {
+  display: block;
+  color: #a0a0b0;
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.gallery-tags {
+  display: block;
+  color: #a855f7;
+  font-size: 0.75rem;
+  margin-bottom: 4px;
+}
+
+.gallery-notes {
+  color: #a0a0b0;
+  font-size: 0.75rem;
+  font-style: italic;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.btn-delete-photo {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: rgba(239, 68, 68, 0.85);
+  border: none;
+  color: white;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.gallery-card:hover .btn-delete-photo {
+  opacity: 1;
+}
+
+.btn-delete-photo:hover {
+  background-color: #ef4444;
+}
