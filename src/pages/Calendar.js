@@ -69,6 +69,10 @@ function Calendar() {
   viewDate.getFullYear() > earliestDate.getFullYear() ||
   viewDate.getMonth() > earliestDate.getMonth();
 
+  const canGoNext =
+  viewDate.getFullYear() < today.getFullYear() ||
+  viewDate.getMonth() < today.getMonth();
+
   const buildCalendarDays = () => {
     const year = viewDate.getFullYear();
     const month = viewDate.getMonth();
@@ -153,7 +157,77 @@ function Calendar() {
   const cells = buildCalendarDays();
 
   return (
-    
+    <div className='calendar-page'>
+       {/*Navigation header*/}
+      <div className="calendar-header">
+        <button
+          className="cal-nav-btn"
+          onClick={goToPrevMonth}
+          disabled={!canGoPrev}
+        >
+          ‹
+        </button>
+        <h2 className="cal-month-title">{monthName}</h2>
+        <button
+          className="cal-nav-btn"
+          onClick={goToNextMonth}
+          disabled={!canGoNext}
+        >
+          ›
+        </button>
+      </div>
+
+      {/* Calendar grid*/}
+      <div className='calendar-grid-wrapper'>
+      
+      {/* Day of week header*/}
+        <div className='calendar-day-labels'>
+        {dayLabels.map((label) => (
+          <div className='cal-day-label' key={label}>{label}</div>
+        ))}
+        </div>
+
+        {/*Day cells*/}
+        <div className='calendar-grid'>
+        {cells.map((cell) => {
+          if (cell.type === 'empty') {
+            return <div className='cal-cell empty' key={cell.key} />;
+          }
+
+          return (
+            <div
+            key={cell.key}
+            className={[
+              'cal-cell',
+              cell.isToday ? 'today' : '',
+              cell.isFuture ? 'future' : '',
+              cell.hasWorkout ? 'has-workout' : '',
+              selectedDate === cell.dateStr ? 'selected' : '',
+            ].join(' ').trim()}
+            onClick={() => handleDayClick(cell)}
+            >
+            <span className='cal-day-number'>{cell.day}</span>
+
+            {/* Dot indicator if workout was logged*/}
+            {cell.hasWorkout && (
+              <span className='cal-workout-dot' />
+            )}
+
+            {/* Camera icon if photo exists, will use a fontawesome one later*/}
+            {cell.hasPhoto && (
+              <span className='cal-photo-icon'>📷</span>
+            )}            
+            </div>
+          );
+        })}
+        </div>
+      </div>
+
+      {/* Detail panel */}
+
+
+
+    </div>
   )
 
 }
