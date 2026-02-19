@@ -20,6 +20,8 @@ function LogWorkout() {
     },
   ]);
   const [saveMessage, setSaveMessage] = useState('');
+  const [hasCardio, setHasCardio] = useState(false);
+  const [cardioEntries, setCardioEntries] = useState([]);
 
   // Checking to see if you are editing an existing workout
   useEffect(() => {
@@ -47,6 +49,20 @@ function LogWorkout() {
       }));
 
       setExercises(formattedExercises);
+
+      const existingCardio = StorageService.getCardioByWorkoutId(workout.id);
+      if (existingCardio.length > 0) {
+        setHasCardio(true);
+        setCardioEntries(
+          existingCardio.map((entry) => ({
+            id: entry.id,
+            activity: entry.activity,
+            duration: entry.duration,
+            distance: entry.distance,
+            intensity: entry.intensity,
+          })),
+        );
+      }
     }
 
     if (location.state?.prefillDate) {
@@ -67,6 +83,8 @@ function LogWorkout() {
         sets: [{ set_number: 1, reps: '', weight: '', unit: 'kg' }],
       },
     ]);
+    setHasCardio(false);
+    setCardioEntries([]);
   };
 
   const addExercise = () => {
@@ -95,6 +113,27 @@ function LogWorkout() {
     if (exercises.length === 1) return;
     const updatedExercises = exercises.filter((_, i) => i !== index);
     setExercises(updatedExercises);
+  };
+
+  const addCardioEntry = () => {
+    setCardioEntries([
+      ...cardioEntries,
+      { activity: '', duration: '', distance: '', intensity: '' },
+    ]);
+  };
+
+  const updateCardioEntry = (index, field, value) => {
+    const updated = cardioEntries.map((entry, i) => {
+      if (i === index) {
+        return { ...entry, [field]: value };
+      }
+      return entry;
+    });
+    setCardioEntries(updated);
+  };
+
+  const removeCardioEntry = (index) => {
+    setCardioEntries(cardioEntries.filter((_, i) => i !== index));
   };
 
   // Save workout
@@ -135,6 +174,21 @@ function LogWorkout() {
         }
       });
 
+      StorageService.deleteCardioByWorkoutId(workoutId);
+      if (hasCardio) {
+        cardioEntries.forEach((entry) => {
+          if (entry.activity.trim()) {
+            StorageService.saveCardio({
+              workout_id: workoutId,
+              activity: entry.activity,
+              duration: entry.duration,
+              distance: entry.distance,
+              intensity: entry.intensity,
+            });
+          }
+        });
+      }
+
       setSaveMessage('Workout saved successfully');
       setTimeout(() => {
         navigate('/history');
@@ -167,6 +221,20 @@ function LogWorkout() {
           });
         }
       });
+
+      if (hasCardio) {
+        cardioEntries.forEach((entry) => {
+          if (entry.activity.trim()) {
+            StorageService.saveCardio({
+              workout_id: savedWorkout.id,
+              activity: entry.activity,
+              duration: entry.duration,
+              distance: entry.distance,
+              intensity: entry.intensity,
+            });
+          }
+        });
+      }
 
       setSaveMessage('Workout saved successfully');
       resetForm();
@@ -221,6 +289,94 @@ function LogWorkout() {
         <button className="btn-add-exercise" onClick={addExercise}>
           + Add Exercise
         </button>
+      </div>
+
+      <div className="cardio-section">
+        <label className="cardio-checkbox-label">
+          <input
+            type="checkbox"
+            checked={hasCardio}
+            onChange={(e) => {
+              setHasCardio(e.target.checked);
+              if (!e.target.checked) setCardioEntries([]);
+            }}
+          />
+          Did you do cardio today?
+        </label>
+
+        {hasCardio && (
+          <div className="cardio-entries">
+            {cardioEntries.length === 0 && (
+              <p className="cardio-empty">Click below to add a cardio entry.</p>
+            )}
+
+            {cardioEntries.map((entry, index) => (
+              <div className="cardio-block" key={index}>
+                <div className="cardio-block-header">
+                  <input
+                    type="text"
+                    className="cardio-activity-input"
+                    placeholder="Activity (e.g. Cycling, stair master)"
+                    value={entry.activity}
+                    onChange={(e) =>
+                      updateCardioEntry(index, 'activity', e.target.value)
+                    }
+                  />
+                  <button
+                    className="btn-remove"
+                    onClick={() => removeCardioEntry(index)}
+                  >
+                    x
+                  </button>
+                </div>
+
+                <div className="cardio-fields">
+                  <div className="cardio-field">
+                    <label>Duration (mins)</label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 45"
+                      value={entry.duration}
+                      onChange={(e) =>
+                        updateCardioEntry(index, 'duration', e.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="cardio-field">
+                    <label>Distance (km)</label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 10"
+                      value={entry.distance}
+                      onChange={(e) =>
+                        updateCardioEntry(index, 'distance', e.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="cardio-field">
+                    <label>Intensity (1-20)</label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="20"
+                      placeholder="e.g. 12"
+                      value={entry.intensity}
+                      onChange={(e) =>
+                        updateCardioEntry(index, 'intensity', e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <button className="btn-add-cardio" onClick={addCardioEntry}>
+              + Add Cardio
+            </button>
+          </div>
+        )}
       </div>
 
       <button className="btn-save-workout" onClick={saveWorkout}>
