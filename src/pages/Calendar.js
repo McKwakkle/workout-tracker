@@ -1,4 +1,4 @@
-import {useState, eseEffect, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StorageService from '../services/StorageService';
 
@@ -15,7 +15,7 @@ function Calendar() {
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
-  const [selectedExcercises, setSelectedExercises] = ([]);
+  const [selectedExcercises, setSelectedExercises] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   useEffect(() => {
@@ -39,11 +39,11 @@ function Calendar() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-   // For local dev this is one month ago.
-   // Will look to change it if I move to firebase
+  // For local dev this is one month ago.
+  // Will look to change it if I move to firebase
 
   const earliestDate = new Date();
-  earliestDate.setMonth(earliestDate.getMonth() -1);
+  earliestDate.setMonth(earliestDate.getMonth() - 1);
   earliestDate.setDate(1);
   earliestDate.setHours(0, 0, 0, 0);
 
@@ -51,7 +51,7 @@ function Calendar() {
     setSelectedDate(null);
     setViewDate((prev) => {
       const d = new Date(prev);
-      d.setMonth(d.getMonth() -1);
+      d.setMonth(d.getMonth() - 1);
       return d;
     });
   };
@@ -66,12 +66,12 @@ function Calendar() {
   };
 
   const canGoPrev =
-  viewDate.getFullYear() > earliestDate.getFullYear() ||
-  viewDate.getMonth() > earliestDate.getMonth();
+    viewDate.getFullYear() > earliestDate.getFullYear() ||
+    viewDate.getMonth() > earliestDate.getMonth();
 
   const canGoNext =
-  viewDate.getFullYear() < today.getFullYear() ||
-  viewDate.getMonth() < today.getMonth();
+    viewDate.getFullYear() < today.getFullYear() ||
+    viewDate.getMonth() < today.getMonth();
 
   const buildCalendarDays = () => {
     const year = viewDate.getFullYear();
@@ -87,7 +87,7 @@ function Calendar() {
     const cells = [];
 
     for (let i = 0; i < startOffset; i++) {
-      cells.push({type: 'empty', key: `empty-${i}`});
+      cells.push({ type: 'empty', key: `empty-${i}` });
     }
 
     for (let day = 1; day <= daysInMonth; day++) {
@@ -95,7 +95,7 @@ function Calendar() {
       const cellDate = new Date(year, month, day);
       cellDate.setHours(0, 0, 0, 0);
 
-      cells.push ({
+      cells.push({
         type: 'day',
         key: dateStr,
         day,
@@ -116,7 +116,7 @@ function Calendar() {
     if (selectedDate === cell.dateStr) {
       setSelectedDate(null);
       setSelectedWorkout(null);
-      selectedExcercises([]);
+      setSelectedExercises([]);
       setSelectedPhoto(null);
       return;
     }
@@ -128,13 +128,13 @@ function Calendar() {
       const exercises = StorageService.getExercisesByWorkoutId(workout.id);
       const exercisesWithSets = exercises.map((ex) => ({
         ...ex,
-        sets: StorageService.getExercisesByWorkoutId(ex.id),
+        sets: StorageService.getSetsByExerciseId(ex.id),
       }));
       setSelectedWorkout(workout);
       setSelectedExercises(exercisesWithSets);
       setSelectedPhoto(photosByDate[cell.dateStr] || null);
     } else {
-      navigate('/log', {state: {prefillDate: cell.dateStr}});
+      navigate('/log', { state: { prefillDate: cell.dateStr } });
     }
   };
 
@@ -149,7 +149,7 @@ function Calendar() {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
-      year: 'numberic',
+      year: 'numeric',
     });
   };
 
@@ -157,8 +157,8 @@ function Calendar() {
   const cells = buildCalendarDays();
 
   return (
-    <div className='calendar-page'>
-       {/*Navigation header*/}
+    <div className="calendar-page">
+      {/*Navigation header*/}
       <div className="calendar-header">
         <button
           className="cal-nav-btn"
@@ -178,58 +178,121 @@ function Calendar() {
       </div>
 
       {/* Calendar grid*/}
-      <div className='calendar-grid-wrapper'>
-      
-      {/* Day of week header*/}
-        <div className='calendar-day-labels'>
-        {dayLabels.map((label) => (
-          <div className='cal-day-label' key={label}>{label}</div>
-        ))}
+      <div className="calendar-grid-wrapper">
+        {/* Day of week header*/}
+        <div className="calendar-day-labels">
+          {dayLabels.map((label) => (
+            <div className="cal-day-label" key={label}>
+              {label}
+            </div>
+          ))}
         </div>
 
         {/*Day cells*/}
-        <div className='calendar-grid'>
-        {cells.map((cell) => {
-          if (cell.type === 'empty') {
-            return <div className='cal-cell empty' key={cell.key} />;
-          }
+        <div className="calendar-grid">
+          {cells.map((cell) => {
+            if (cell.type === 'empty') {
+              return <div className="cal-cell empty" key={cell.key} />;
+            }
 
-          return (
-            <div
-            key={cell.key}
-            className={[
-              'cal-cell',
-              cell.isToday ? 'today' : '',
-              cell.isFuture ? 'future' : '',
-              cell.hasWorkout ? 'has-workout' : '',
-              selectedDate === cell.dateStr ? 'selected' : '',
-            ].join(' ').trim()}
-            onClick={() => handleDayClick(cell)}
-            >
-            <span className='cal-day-number'>{cell.day}</span>
+            return (
+              <div
+                key={cell.key}
+                className={[
+                  'cal-cell',
+                  cell.isToday ? 'today' : '',
+                  cell.isFuture ? 'future' : '',
+                  cell.hasWorkout ? 'has-workout' : '',
+                  selectedDate === cell.dateStr ? 'selected' : '',
+                ]
+                  .join(' ')
+                  .trim()}
+                onClick={() => handleDayClick(cell)}
+              >
+                <span className="cal-day-number">{cell.day}</span>
 
-            {/* Dot indicator if workout was logged*/}
-            {cell.hasWorkout && (
-              <span className='cal-workout-dot' />
-            )}
+                {/* Dot indicator if workout was logged*/}
+                {cell.hasWorkout && <span className="cal-workout-dot" />}
 
-            {/* Camera icon if photo exists, will use a fontawesome one later*/}
-            {cell.hasPhoto && (
-              <span className='cal-photo-icon'>📷</span>
-            )}            
-            </div>
-          );
-        })}
+                {/* Camera icon if photo exists, will use a fontawesome one later*/}
+                {cell.hasPhoto && <span className="cal-photo-icon">📷</span>}
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* Detail panel */}
+      {selectedDate && selectedWorkout && (
+        <div className="cal-detail-panel">
+          <div className="cal-detail-header">
+            <h3>{selectedWorkout.name}</h3>
+            <span className="cal-detail-date">
+              {formatDetailDate(selectedDate)}
+            </span>
+          </div>
 
+          {selectedWorkout.notes && (
+            <p className="cal-detail-notes">{selectedWorkout.notes}</p>
+          )}
 
+          {/*Photo left, exercise right*/}
+          <div className="cal-detail-body">
+            {/* Load photo if it exists*/}
+            <div className="cal-detail-photo-col">
+              {selectedPhoto ? (
+                <>
+                  <img
+                    src={selectedPhoto.image}
+                    alt="Progress"
+                    className="cal-detail-photo"
+                  />
+                  {selectedPhoto.tags && (
+                    <p className="cal-detail-photo-tags">
+                      {selectedPhoto.tags}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <div
+                  className="cal-detail-no-photo"
+                  onClick={() => navigate('/photos')}
+                >
+                  <span className="cal-no-photo-icon">📷</span>
+                  <p>No photo for this day</p>
+                  <p className="cal-no-photo-cta">Click to add one</p>
+                </div>
+              )}
+            </div>
 
+            {/*Right side*/}
+            <div className="cal-detail-exercise-col">
+              {selectedExcercises.length === 0 ? (
+                <p className="cal-no-exercises">No exercises recorded</p>
+              ) : (
+                selectedExcercises.map((exercise) => (
+                  <div className="cal-exercise" key={exercise.id}>
+                    <h4 className="cal-exercise-name">{exercise.name}</h4>
+                    {exercise.sets.map((set) => (
+                      <div className="cal-set-row" key={set.id}>
+                        <span className="cal-set-number">
+                          Set {set.set_number}
+                        </span>
+                        <span className="cal-set-info">
+                          {set.weight}
+                          {set.unit} x {set.reps} reps
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-  )
-
+  );
 }
 
 export default Calendar;
