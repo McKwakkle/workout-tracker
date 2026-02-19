@@ -35,7 +35,7 @@ function WorkoutHistory() {
     setWorkoutDetails((prev) => ({
       ...prev,
       [workoutId]: {
-        exercise: exercisesWithSets,
+        exercises: exercisesWithSets,
         cardio: cardio,
       },
     }));
@@ -124,7 +124,7 @@ function WorkoutHistory() {
                         No exercises recorded for this workout.
                       </p>
                     ) : (
-                      workoutDetails[workout.id].map((exercise) => (
+                      workoutDetails[workout.id].exercises.map((exercise) => (
                         <div className="exercise-detail" key={exercise.id}>
                           <h4>{exercise.name}</h4>
                           <div className="sets-detail">
