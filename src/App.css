@@ -1407,4 +1407,42 @@ empty-state strong {
 
 .cardio-detail {
   margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #2d2b42;
+}
+
+.cardio-detail-title {
+  color: #c084fc;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.cardio-detail-entry {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom:  1px solid rgba(45, 43, 66, 0.5);
+}
+
+.cardio-detail-entry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.cardio-detail-activity {
+  display: block;
+  color: #e0e0e0;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.cardio-detail-stats {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.cardio-detail-stats span {
+  color: #a0a0b0;
+  font-size: 0.85rem;
 }
