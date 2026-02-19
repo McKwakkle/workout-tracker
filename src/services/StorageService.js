@@ -21,6 +21,7 @@ const StorageService = {
       StorageService.deleteSetsByExerciseId(exercise.id);
     });
     StorageService.deleteExercisesByWorkoutId(id);
+    StorageService.deleteCardioByWorkoutId(id);
     return storage.delete('workouts', id);
   },
 
@@ -73,6 +74,25 @@ const StorageService = {
     const allSets = storage.getAll('sets');
     const toKeep = allSets.filter((set) => set.exercise_id !== exerciseId);
     storage.replaceAll('sets', toKeep);
+  },
+
+  getCardioByWorkoutId: (workoutId) => {
+    const allCardio = storage.getAll('cardio');
+    return allCardio.filter((entry) => entry.workout_id === workoutId);
+  },
+
+  saveCardio: (cardio) => {
+    return storage.save('cardio', cardio);
+  },
+
+  deleteCardio: (id) => {
+    return storage.delete('cardio', id);
+  },
+
+  deleteCardioByWorkoutId: (workoutId) => {
+    const allCardio = storage.getAll('cardio');
+    const toKeep = allCardio.filter((entry) => entry.workout_id !== workoutId);
+    storage.replaceAll('cardio', toKeep);
   },
 
   getAllPhotos: () => {
