@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import StorageService from '../services/StorageService';
 
 function WorkoutHistory() {
@@ -30,9 +30,14 @@ function WorkoutHistory() {
       sets: StorageService.getSetsByExerciseId(exercise.id),
     }));
 
+    const cardio = StorageService.getCardioByWorkoutId(workoutId);
+
     setWorkoutDetails((prev) => ({
       ...prev,
-      [workoutId]: exercisesWithSets,
+      [workoutId]: {
+        exercise: exercisesWithSets,
+        cardio: cardio,
+      },
     }));
     setExpandedId(workoutId);
   };
@@ -109,48 +114,75 @@ function WorkoutHistory() {
                 <p className="workout-notes">{workout.notes}</p>
               )}
 
-              <div className={`workout-detail ${expandedId === workout.id ? 'expanded' : ''}`}>
+              <div
+                className={`workout-detail ${expandedId === workout.id ? 'expanded' : ''}`}
+              >
                 {workoutDetails[workout.id] && (
                   <>
-                  {workoutDetails[workout.id].length === 0 ? (
-                    <p className="no-exercises">
-                    No exercises recorded for this workout.
-                    </p>
-                  ) : (
-                    workoutDetails[workout.id].map((exercise) => (
-                      <div className="exercise-detail" key={exercise.id}>
-                        <h4>{exercise.name}</h4>
-                        <div className="sets-detail">
-                          {exercise.sets.map((set) => (
-                            <div className="set-detail-row" key={set.id}>
-                            <span className="set-number">
-                              Set {set.set_number}
-                            </span>
-                            <span className="set-info">
-                            {set.weight}
-                            {set.unit} x {set.reps} reps
-                            </span>
-                            </div>
-                          ))}
+                    {workoutDetails[workout.id].length === 0 ? (
+                      <p className="no-exercises">
+                        No exercises recorded for this workout.
+                      </p>
+                    ) : (
+                      workoutDetails[workout.id].map((exercise) => (
+                        <div className="exercise-detail" key={exercise.id}>
+                          <h4>{exercise.name}</h4>
+                          <div className="sets-detail">
+                            {exercise.sets.map((set) => (
+                              <div className="set-detail-row" key={set.id}>
+                                <span className="set-number">
+                                  Set {set.set_number}
+                                </span>
+                                <span className="set-info">
+                                  {set.weight}
+                                  {set.unit} x {set.reps} reps
+                                </span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))
-                  )}
+                      ))
+                    )}
 
-                  <div className="workout-actions">
-                    <button
-                      className="btn-edit"
-                      onClick={() => editWorkout(workout.id)}
+                    {/* added a cardio section */}
+                    {workoutDetails[workout.id].cardio.length > 0 && (
+                      <div className="cardio-detail">
+                        <h4 className="cardio-detail-title">Cardio</h4>
+                        {workoutDetails[workout.id].cardio.map((entry) => (
+                          <div className="cardio-detail-entry" key={entry.id}>
+                            <span className="cardio-detail-activity">
+                              {entry.activity}
+                            </span>
+                            <div className="cardio-detail-stats">
+                              {entry.duration && (
+                                <span>{entry.duration} mins</span>
+                              )}
+                              {entry.distance && (
+                                <span>{entry.distance} km</span>
+                              )}
+                              {entry.intensity && (
+                                <span>Intenisty: {entry.intensity}/20</span>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="workout-actions">
+                      <button
+                        className="btn-edit"
+                        onClick={() => editWorkout(workout.id)}
                       >
-                      Edit Workout
+                        Edit Workout
                       </button>
-                    <button
-                      className="btn-delete"
-                      onClick={() => deleteWorkout(workout.id)}
+                      <button
+                        className="btn-delete"
+                        onClick={() => deleteWorkout(workout.id)}
                       >
-                      Delete Workout
+                        Delete Workout
                       </button>
-                  </div>
+                    </div>
                   </>
                 )}
               </div>
