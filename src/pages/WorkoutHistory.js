@@ -161,7 +161,7 @@ function WorkoutHistory() {
                                 <span>{entry.distance} km</span>
                               )}
                               {entry.intensity && (
-                                <span>Intenisty: {entry.intensity}/20</span>
+                                <span>Intensity: {entry.intensity}/20</span>
                               )}
                             </div>
                           </div>
