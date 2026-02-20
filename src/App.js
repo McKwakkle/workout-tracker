@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,31 +14,50 @@ import Calendar from './pages/Calendar';
 import './App.css';
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <Router>
       <div className="App">
         <nav className="navbar">
           <h1 className="nav-logo">Workout Tracker</h1>
-          <ul className="nav-links">
+
+          <button
+            className="nav-burger"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle navigation"
+          >
+            {menuOpen ? '✕' : '☰'}
+          </button>
+          <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
             <li>
-              <NavLink to="/" end>
+              <NavLink to="/" end onClick={() => setMenuOpen(false)}>
                 Dashboard
               </NavLink>
             </li>
             <li>
-              <NavLink to="/log">Log Workout</NavLink>
+              <NavLink to="/log" onClick={() => setMenuOpen(false)}>
+                Log Workout
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/progress">Progress</NavLink>
+              <NavLink to="/progress" onClick={() => setMenuOpen(false)}>
+                Progress
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/photos">Photos</NavLink>
+              <NavLink to="/photos" onClick={() => setMenuOpen(false)}>
+                Photos
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/history">History</NavLink>
+              <NavLink to="/history" onClick={() => setMenuOpen(false)}>
+                History
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/calendar">Calendar</NavLink>
+              <NavLink to="/calendar" onClick={() => setMenuOpen(false)}>
+                Calendar
+              </NavLink>
             </li>
           </ul>
         </nav>
