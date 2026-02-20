@@ -17,6 +17,7 @@ function Calendar() {
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [selectedExcercises, setSelectedExercises] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [selectedCardio, setSelectedCardio] = useState([]);
 
   useEffect(() => {
     const allWorkouts = StorageService.getAllWorkouts();
@@ -117,6 +118,7 @@ function Calendar() {
       setSelectedDate(null);
       setSelectedWorkout(null);
       setSelectedExercises([]);
+      setSelectedCardio([]);
       setSelectedPhoto(null);
       return;
     }
@@ -130,8 +132,12 @@ function Calendar() {
         ...ex,
         sets: StorageService.getSetsByExerciseId(ex.id),
       }));
+
+      const cardio = StorageService.getCardioByWorkoutId(workout.id);
+
       setSelectedWorkout(workout);
       setSelectedExercises(exercisesWithSets);
+      setSelectedCardio(cardio);
       setSelectedPhoto(photosByDate[cell.dateStr] || null);
     } else {
       navigate('/log', { state: { prefillDate: cell.dateStr } });
@@ -266,7 +272,7 @@ function Calendar() {
             </div>
 
             {/*Right side*/}
-            <div className="cal-detail-exercise-col">
+            <div className="cal-detail-exercises-col">
               {selectedExcercises.length === 0 ? (
                 <p className="cal-no-exercises">No exercises recorded</p>
               ) : (
@@ -288,6 +294,27 @@ function Calendar() {
                 ))
               )}
             </div>
+
+            {/*Cardio entires*/}
+            {selectedCardio.length > 0 && (
+              <div className="cal-cardio-detail">
+                <h4 className="cal-cardio-title">Cardio</h4>
+                {selectedCardio.map((entry) => (
+                  <div className="cal-cardio-entry" key={entry.id}>
+                    <span className="cal-cardio-activity">
+                      {entry.activity}
+                    </span>
+                    <div className="cal-cardio-stats">
+                      {entry.duration && <span>{entry.duration} mins</span>}
+                      {entry.distance && <span>{entry.distance} km</span>}
+                      {entry.intensity && (
+                        <span>Intensity: {entry.intensity}/20</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
