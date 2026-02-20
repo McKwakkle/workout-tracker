@@ -1420,7 +1420,7 @@ empty-state strong {
 .cardio-detail-entry {
   margin-bottom: 10px;
   padding-bottom: 10px;
-  border-bottom:  1px solid rgba(45, 43, 66, 0.5);
+  border-bottom: 1px solid rgba(45, 43, 66, 0.5);
 }
 
 .cardio-detail-entry:last-child {
@@ -1487,4 +1487,12 @@ empty-state strong {
 .cal-cardio-stats span {
   color: #a0a0b0;
   font-size: 0.85rem;
+}
+
+.cal-detail-actions {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #2d2b42;
+  display: flex;
+  gap: 12px;
 }
