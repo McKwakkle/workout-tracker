@@ -45,8 +45,8 @@ function Dashboard() {
 
     allWorkouts.forEach((workout) => {
       const exercises = StorageService.getExercisesByWorkoutId(workout.id);
-      exercises.forEach((ecercise) => {
-        const sets = StorageService.getSetsByExerciseId(exerciseCount.id);
+      exercises.forEach((exercise) => {
+        const sets = StorageService.getSetsByExerciseId(exercise.id);
         sets.forEach((set) => {
           totalReps += Number(set.reps) || 0;
           totalWeight += (Number(set.weight) || 0) * (Number(set.reps) || 0);
@@ -94,7 +94,7 @@ function Dashboard() {
         <div className="dashboard-empty">
           <p className="dashboard-empty-title">Nothing logged yet.</p>
           <p className="dashboard-empty-sub">
-            Head to <strong>Kig Workout</strong> to record your first session
+            Head to <strong>Log Workout</strong> to record your first session
             and start tracking your progress.
           </p>
         </div>
@@ -174,6 +174,7 @@ function Dashboard() {
               <span className="stat-value">
                 {stats.totalCardioMinutes.toLocaleString()}
               </span>
+              <span className='stat-label'>Cardio Minutes</span>
             </div>
           </div>
         </>
