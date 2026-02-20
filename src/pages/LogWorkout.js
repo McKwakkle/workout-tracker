@@ -66,7 +66,61 @@ function LogWorkout() {
     }
 
     if (location.state?.prefillDate) {
-      setWorkoutDate(location.state.prefillDate);
+      const dateToUse = location.state.prefillDate;
+      const allWorkouts = StorageService.getAllWorkouts();
+      const existingWorkout = allWorkouts.find((w) => w.date === dateToUse);
+
+      if (existingWorkout) {
+        setEditMode(true);
+        setWorkoutId(existingWorkout.id);
+        setWorkoutName(existingWorkout.name);
+        setWorkoutDate(existingWorkout.date);
+        setNotes(existingWorkout.notes || '');
+
+        const existingExercises = StorageService.getExercisesByWorkoutId(
+          existingWorkout.id,
+        );
+        const exercisesWithSets = existingExercises.map((exercise) => ({
+          id: exercise.id,
+          name: exercise.name,
+          sets: StorageService.getSetsByExerciseId(exercise.id).map((set) => ({
+            id: set.id,
+            set_number: set.set_number,
+            reps: set.reps,
+            weight: set.weight,
+            unit: set.unit,
+          })),
+        }));
+
+        setExercises(
+          exercisesWithSets.length > 0
+            ? exercisesWithSets
+            : [
+                {
+                  name: '',
+                  sets: [{ set_number: 1, reps: '', weight: '', unit: 'kg' }],
+                },
+              ],
+        );
+
+        const existingCardio = StorageService.getCardioByWorkoutId(
+          existingWorkout.id,
+        );
+        if (existingCardio.length > 0) {
+          setHasCardio(true);
+          setCardioEntries(
+            existingCardio.map((entry) => ({
+              id: entry.id,
+              activity: entry.activity,
+              duration: entry.duration,
+              distance: entry.distance,
+              intensity: entry.intensity,
+            })),
+          );
+        }
+      } else {
+        setWorkoutDate(dateToUse);
+      }
     }
   }, [location.state]);
 
