@@ -293,28 +293,28 @@ function Calendar() {
                   </div>
                 ))
               )}
-            </div>
 
-            {/*Cardio entires*/}
-            {selectedCardio.length > 0 && (
-              <div className="cal-cardio-detail">
-                <h4 className="cal-cardio-title">Cardio</h4>
-                {selectedCardio.map((entry) => (
-                  <div className="cal-cardio-entry" key={entry.id}>
-                    <span className="cal-cardio-activity">
-                      {entry.activity}
-                    </span>
-                    <div className="cal-cardio-stats">
-                      {entry.duration && <span>{entry.duration} mins</span>}
-                      {entry.distance && <span>{entry.distance} km</span>}
-                      {entry.intensity && (
-                        <span>Intensity: {entry.intensity}/20</span>
-                      )}
+              {/*Cardio entires*/}
+              {selectedCardio.length > 0 && (
+                <div className="cal-cardio-detail">
+                  <h4 className="cal-cardio-title">Cardio</h4>
+                  {selectedCardio.map((entry) => (
+                    <div className="cal-cardio-entry" key={entry.id}>
+                      <span className="cal-cardio-activity">
+                        {entry.activity}
+                      </span>
+                      <div className="cal-cardio-stats">
+                        {entry.duration && <span>{entry.duration} mins</span>}
+                        {entry.distance && <span>{entry.distance} km</span>}
+                        {entry.intensity && (
+                          <span>Intensity: {entry.intensity}/20</span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
