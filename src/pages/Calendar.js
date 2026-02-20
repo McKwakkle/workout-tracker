@@ -316,6 +316,30 @@ function Calendar() {
               )}
             </div>
           </div>
+
+          <div className="cal-detail-actions">
+            <button
+              className="btn-edit"
+              onClick={() => {
+                const exercises = StorageService.getExercisesByWorkoutId(
+                  selectedWorkout.id,
+                );
+                const exerciseWithSets = exercises.map((ex) => ({
+                  ...ex,
+                  sets: StorageService.getSetsByExerciseId(ex.id),
+                }));
+                navigate('/log', {
+                  state: {
+                    editMode: true,
+                    workout: selectedWorkout,
+                    exercises: exerciseWithSets,
+                  },
+                });
+              }}
+            >
+              Edit Workout
+            </button>
+          </div>
         </div>
       )}
     </div>
