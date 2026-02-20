@@ -115,6 +115,10 @@ const StorageService = {
     storage.replaceAll('userProfile', [profile]);
     return profile;
   },
+
+  getAllCardio: () => {
+    return storage.getAll('cardio');
+  },
 };
 
 export default StorageService;
