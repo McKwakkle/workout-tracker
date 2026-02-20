@@ -1446,3 +1446,45 @@ empty-state strong {
   color: #a0a0b0;
   font-size: 0.85rem;
 }
+
+.cal-cardio-detail {
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid #2d2b42;
+}
+
+.cal-cardio-title {
+  color: #c084fc;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.cal-cardio-entry {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(45, 43, 66, 0.5);
+}
+
+.cal-cardio-activity:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.cal-cardio-activity {
+  display: block;
+  color: #e0e0e0;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.cal-cardio-stats {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.cal-cardio-stats span {
+  color: #a0a0b0;
+  font-size: 0.85rem;
+}
