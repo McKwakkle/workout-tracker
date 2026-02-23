@@ -64,7 +64,7 @@ function Progress() {
 
           data.push({
             date: workout.date,
-            WorkoutName: workout.name,
+            workoutName: workout.name,
             heaviestWeight: Number(heaviest.weight),
             heaviestReps: Number(heaviest.reps),
             unit: heaviest.unit,
@@ -207,6 +207,7 @@ function Progress() {
             {/* Progression Table */}
             <div className="progress-table-section">
               <h3>Weight Progression — {selectedExercise}</h3>
+              <div className='progress-table-wrapper'>
               {progressData.length === 0 ? (
                 <p className="empty-progress">No data yet for this exercise.</p>
               ) : (
@@ -264,6 +265,7 @@ function Progress() {
                   </tbody>
                 </table>
               )}
+              </div>
             </div>
           </div>
         </div>
