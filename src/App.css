@@ -1881,7 +1881,6 @@ pointer-events: auto;
   .scroll-to-top {
     display: flex;
     bottom: 80px;
-    pointer-events: auto;
   }
 
   .dashboard-header {
