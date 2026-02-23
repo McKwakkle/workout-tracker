@@ -164,7 +164,7 @@ function Photos() {
                 <img src={preview} alt="Preview" className="upload-preview" />
               ) : (
                 <div className="upload-placeholder">
-                  <span className="upload-icon">📷</span>
+                  <span className="upload-icon"><i className="fa-solid fa-camera"></i></span>
                   <p>Click to select a photo</p>
                 </div>
               )}
