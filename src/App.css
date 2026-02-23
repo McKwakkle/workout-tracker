@@ -324,13 +324,18 @@ body {
 
 /* History Page Styles */
 .workout-history {
-  max-width: 800px;
   margin: 0 auto;
 }
 
 .workout-history h2 {
   margin-bottom: 20px;
   color: #a855f7;
+  text-align: center;
+}
+
+.workout-list {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .empty-state {
@@ -1809,8 +1814,8 @@ body {
 }
 
 .scroll-to-top.visible {
-opacity: 1;
-pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .content-wrapper {
@@ -2057,7 +2062,8 @@ pointer-events: auto;
     flex-direction: column;
   }
 
-  .btn-edit, .btn-delete {
+  .btn-edit,
+  .btn-delete {
     width: 100%;
     text-align: center;
   }
@@ -2071,7 +2077,8 @@ pointer-events: auto;
     width: 100%;
   }
 
-  .cal-detail-photo, .cal-detail-no-photo {
+  .cal-detail-photo,
+  .cal-detail-no-photo {
     aspect-ratio: 16/9;
   }
 
