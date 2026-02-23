@@ -1938,4 +1938,13 @@ body {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .workout-actions {
+    flex-direction: column;
+  }
+
+  .btn-edit, .btn-delete {
+    width: 100%;
+    text-align: center;
+  }
 }
