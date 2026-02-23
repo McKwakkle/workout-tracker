@@ -1714,9 +1714,15 @@ body {
 }
 
 @media (max-width: 768px) {
+
+  html, body {
+    overflow-x: hidden;
+  }
   .navbar {
     flex-wrap: wrap;
     padding: 15px 20px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .nav-burger {
