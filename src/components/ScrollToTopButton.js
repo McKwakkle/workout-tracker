@@ -17,7 +17,7 @@ function ScrollToTopButton() {
 
   return (
     <button
-    className={`scroll-to-top ${visible  ? ' visible' : ''}`}
+    className={`scroll-to-top ${visible  ? 'visible' : ''}`}
     onClick={scrollToTop}
     aria-label="Scroll to top"
     >
