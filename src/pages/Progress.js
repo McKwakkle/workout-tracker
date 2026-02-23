@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import StorageService from '../services/StorageService';
+import ScrollToTopButton from '../components/ScrollToTopButton';
 
 function Progress() {
   const [allExerciseNames, setAllExerciseNames] = useState([]);
@@ -207,64 +208,66 @@ function Progress() {
             {/* Progression Table */}
             <div className="progress-table-section">
               <h3>Weight Progression — {selectedExercise}</h3>
-              <div className='progress-table-wrapper'>
-              {progressData.length === 0 ? (
-                <p className="empty-progress">No data yet for this exercise.</p>
-              ) : (
-                <table className="progress-table">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Workout</th>
-                      <th>Top Weight</th>
-                      <th>Reps</th>
-                      <th>Sets</th>
-                      <th>Volume</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {progressData.map((entry, index) => {
-                      const prevWeight =
-                        index > 0
-                          ? progressData[index - 1].heaviestWeight
-                          : null;
-                      const weightChange =
-                        prevWeight !== null
-                          ? entry.heaviestWeight - prevWeight
-                          : 0;
+              <div className="progress-table-wrapper">
+                {progressData.length === 0 ? (
+                  <p className="empty-progress">
+                    No data yet for this exercise.
+                  </p>
+                ) : (
+                  <table className="progress-table">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Workout</th>
+                        <th>Top Weight</th>
+                        <th>Reps</th>
+                        <th>Sets</th>
+                        <th>Volume</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {progressData.map((entry, index) => {
+                        const prevWeight =
+                          index > 0
+                            ? progressData[index - 1].heaviestWeight
+                            : null;
+                        const weightChange =
+                          prevWeight !== null
+                            ? entry.heaviestWeight - prevWeight
+                            : 0;
 
-                      return (
-                        <tr key={index}>
-                          <td>{formatDate(entry.date)}</td>
-                          <td>{entry.workoutName}</td>
-                          <td className="weight-cell">
-                            {entry.heaviestWeight}
-                            {entry.unit}
-                            {weightChange > 0 && (
-                              <span className="weight-up">
-                                {' '}
-                                ↑{weightChange}
-                              </span>
-                            )}
-                            {weightChange < 0 && (
-                              <span className="weight-down">
-                                {' '}
-                                ↓{Math.abs(weightChange)}
-                              </span>
-                            )}
-                          </td>
-                          <td>{entry.heaviestReps}</td>
-                          <td>{entry.totalSets}</td>
-                          <td>
-                            {entry.totalVolume}
-                            {entry.unit}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              )}
+                        return (
+                          <tr key={index}>
+                            <td>{formatDate(entry.date)}</td>
+                            <td>{entry.workoutName}</td>
+                            <td className="weight-cell">
+                              {entry.heaviestWeight}
+                              {entry.unit}
+                              {weightChange > 0 && (
+                                <span className="weight-up">
+                                  {' '}
+                                  ↑{weightChange}
+                                </span>
+                              )}
+                              {weightChange < 0 && (
+                                <span className="weight-down">
+                                  {' '}
+                                  ↓{Math.abs(weightChange)}
+                                </span>
+                              )}
+                            </td>
+                            <td>{entry.heaviestReps}</td>
+                            <td>{entry.totalSets}</td>
+                            <td>
+                              {entry.totalVolume}
+                              {entry.unit}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                )}
               </div>
             </div>
           </div>
@@ -279,6 +282,7 @@ function Progress() {
           </p>
         </div>
       )}
+      <ScrollToTopButton />
     </div>
   );
 }

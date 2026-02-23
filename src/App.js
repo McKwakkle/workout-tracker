@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,10 +15,20 @@ import './App.css';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navScrolled, setNavScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setNavScrolled(window.scrollY > 80);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
     <Router basename="/workout-tracker">
       <div className="App">
-        <nav className="navbar">
+        <nav className={`navbar ${navScrolled ? 'nav-scrolled' : ''}`}>
           <h1 className="nav-logo">Workout Tracker</h1>
 
           <button

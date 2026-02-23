@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StorageService from '../services/StorageService';
+import ScrollToTopButton from '../components/ScrollToTopButton';
 
 function WorkoutHistory() {
   const [workouts, setWorkouts] = useState([]);
@@ -190,6 +191,7 @@ function WorkoutHistory() {
           ))}
         </div>
       )}
+      <ScrollToTopButton />
     </div>
   );
 }

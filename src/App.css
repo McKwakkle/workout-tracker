@@ -18,6 +18,7 @@ body {
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: 0.4s ease;
 }
 
 .nav-logo {
@@ -48,6 +49,14 @@ body {
 .nav-links a.active {
   color: #a855f7;
   background-color: rgba(168, 85, 247, 0.15);
+}
+
+.nav-scrolled {
+  opacity: 0.15;
+}
+
+.nav-scrolled:hover {
+  opacity: 1;
 }
 
 .main-content {
@@ -1777,6 +1786,31 @@ body {
   display: none;
 }
 
+.scroll-to-top {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background-color: #a855f7;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-to-top.visible {
+opacity: 1;
+}
+
 @media (max-width: 768px) {
 
   html, body {
@@ -1787,6 +1821,11 @@ body {
     padding: 15px 20px;
     width: 100%;
     box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    opacity: 1;
+    transition: none;
   }
 
   .nav-burger {
@@ -1831,6 +1870,14 @@ body {
     width: 100%;
     padding: 12px 16px;
     border-radius: 8px;
+  }
+
+  .nav-scrolled {
+    opacity: 1;
+  }
+
+  .scroll-to-top {
+    display: flex;
   }
 
   .dashboard-header {

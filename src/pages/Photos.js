@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import StorageService from '../services/StorageService';
+import ScrollToTopButton from '../components/ScrollToTopButton';
 
 function Photos() {
   const [photos, setPhotos] = useState([]);
@@ -164,7 +165,9 @@ function Photos() {
                 <img src={preview} alt="Preview" className="upload-preview" />
               ) : (
                 <div className="upload-placeholder">
-                  <span className="upload-icon"><i className="fa-solid fa-camera"></i></span>
+                  <span className="upload-icon">
+                    <i className="fa-solid fa-camera"></i>
+                  </span>
                   <p>Click to select a photo</p>
                 </div>
               )}
@@ -347,6 +350,7 @@ function Photos() {
           </div>
         )}
       </div>
+      <ScrollToTopButton />
     </div>
   );
 }
