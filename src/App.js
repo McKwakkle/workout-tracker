@@ -16,7 +16,7 @@ import './App.css';
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <Router>
+    <Router basename="/workout-tracker">
       <div className="App">
         <nav className="navbar">
           <h1 className="nav-logo">Workout Tracker</h1>
@@ -26,7 +26,11 @@ function App() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle navigation"
           >
-            {menuOpen ? <i className="fa-solid fa-xmark"></i> : <i className="fa-solid fa-bars"></i>}
+            {menuOpen ? (
+              <i className="fa-solid fa-xmark"></i>
+            ) : (
+              <i className="fa-solid fa-bars"></i>
+            )}
           </button>
           <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
             <li>
@@ -81,7 +85,7 @@ function App() {
               rel="noreferrer"
               className="footer-link"
             >
-            <i className="fa-brands fa-github"></i>
+              <i className="fa-brands fa-github"></i>
               Github
             </a>
             <a
@@ -90,11 +94,11 @@ function App() {
               rel="noreferrer"
               className="footer-link"
             >
-            <i className="fa-brands fa-linkedin"></i>
+              <i className="fa-brands fa-linkedin"></i>
               LinkedIn
             </a>
             <a href="#" className="footer-link footer-link-disabled">
-            <i className="fa-solid fa-briefcase"></i>
+              <i className="fa-solid fa-briefcase"></i>
               Portfolio (Coming Soon)
             </a>
           </div>
