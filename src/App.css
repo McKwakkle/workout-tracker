@@ -1707,6 +1707,43 @@ body {
   letter-spacing: 0.05rem;
 }
 
+.site-footer {
+  background-color: #1c1a2e;
+  border-top: 1px solid #2d2b42;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-link {
+  color: #a0a0b0;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #a855f7;
+}
+
+.footer-link-disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+.footer-credit {
+  color: #a0a0b0;
+  font-size: 0.85rem;
+}
+
 /*Time for mobile styling*/
 
 .nav-burger {
@@ -1963,5 +2000,12 @@ body {
 
   .cal-set-row {
     flex-wrap: wrap;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    padding: 20px 15px;
   }
 }

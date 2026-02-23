@@ -72,6 +72,31 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
           </Routes>
         </main>
+
+        <footer className="site-footer">
+          <div className="footer-links">
+            <a
+              href="https://github.com/McKwakkle"
+              target="_blank"
+              rel="noreferrer"
+              className="footer-link"
+            >
+              Github
+            </a>
+            <a
+              href="https://www.linkedin.com/in/kellan-mc-naughton-906653120/"
+              target="_blank"
+              rel="noreferrer"
+              className="footer-link"
+            >
+              LinkedIn
+            </a>
+            <a href="#" className="footer-link footer-link-disabled">
+              Portfolio (Coming Soon)
+            </a>
+          </div>
+          <p className="footer-credit">Built by Kellan "Obelix" Mc Naughton</p>
+        </footer>
       </div>
     </Router>
   );
