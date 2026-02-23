@@ -1947,4 +1947,21 @@ body {
     width: 100%;
     text-align: center;
   }
+
+  .cal-detail-body {
+    flex-direction: column;
+  }
+
+  .cal-detail-photo-col {
+    flex: none;
+    width: 100%;
+  }
+
+  .cal-detail-photo, .cal-detail-no-photo {
+    aspect-ratio: 16/9;
+  }
+
+  .cal-set-row {
+    flex-wrap: wrap;
+  }
 }
