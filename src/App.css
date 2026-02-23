@@ -1789,7 +1789,7 @@ body {
 .scroll-to-top {
   display: none;
   position: fixed;
-  bottom: 30px;
+  bottom: 80px;
   right: 20px;
   width: 44px;
   height: 44px;
@@ -1805,17 +1805,19 @@ body {
   box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .scroll-to-top.visible {
 opacity: 1;
+pointer-events: auto;
+}
+
+.content-wrapper {
+  overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
-
-  html, body {
-    overflow-x: hidden;
-  }
   .navbar {
     flex-wrap: wrap;
     padding: 15px 20px;
@@ -1878,6 +1880,8 @@ opacity: 1;
 
   .scroll-to-top {
     display: flex;
+    bottom: 80px;
+    pointer-events: auto;
   }
 
   .dashboard-header {
