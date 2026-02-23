@@ -328,7 +328,7 @@ body {
   color: #a0a0b0;
 }
 
-empty-state strong {
+.empty-state strong {
   color: #a855f7;
 }
 
@@ -356,7 +356,7 @@ empty-state strong {
 .workout-card-info h3 {
   color: #e0e0e0;
   margin-bottom: 4px;
-  font: optional;
+  font-weight: normal;
 }
 
 .workout-date {
@@ -824,7 +824,7 @@ empty-state strong {
   background-color: rgba(168, 85, 247, 0.2);
 }
 
-.btn-compare-taggle.active {
+.btn-compare-toggle.active {
   background-color: #a855f7;
   color: white;
 }
@@ -1100,7 +1100,7 @@ empty-state strong {
   cursor: default;
 }
 
-.cal-call:not(.empty):not(.future):hover {
+.cal-cell:not(.empty):not(.future):hover {
   border-color: #2d2b42;
   background-color: #1c1a2e;
 }
@@ -1261,7 +1261,7 @@ empty-state strong {
   margin-bottom: 18px;
 }
 
-.cal.exercise-name {
+.cal-exercise-name {
   color: #c084fc;
   font-size: 1rem;
   margin-bottom: 8px;
@@ -1465,7 +1465,7 @@ empty-state strong {
   border-bottom: 1px solid rgba(45, 43, 66, 0.5);
 }
 
-.cal-cardio-activity:last-child {
+.cal-cardio-entry:last-child {
   border-bottom: none;
   margin-bottom: 0;
   padding-bottom: 0;
