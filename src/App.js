@@ -26,7 +26,7 @@ function App() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle navigation"
           >
-            {menuOpen ? '✕' : '☰'}
+            {menuOpen ? <i className="fa-solid fa-xmark"></i> : <i className="fa-solid fa-bars"></i>}
           </button>
           <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
             <li>
@@ -81,6 +81,7 @@ function App() {
               rel="noreferrer"
               className="footer-link"
             >
+            <i className="fa-brands fa-github"></i>
               Github
             </a>
             <a
@@ -89,9 +90,11 @@ function App() {
               rel="noreferrer"
               className="footer-link"
             >
+            <i className="fa-brands fa-linkedin"></i>
               LinkedIn
             </a>
             <a href="#" className="footer-link footer-link-disabled">
+            <i className="fa-solid fa-briefcase"></i>
               Portfolio (Coming Soon)
             </a>
           </div>

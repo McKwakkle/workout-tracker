@@ -146,7 +146,9 @@ function Dashboard() {
                 className="dashboard-no-photo"
                 onClick={() => navigate('/photos')}
               >
-                <span className="dashboard-no-photo-icon">📷</span>
+                <span className="dashboard-no-photo-icon">
+                  <i className="fa-solid fa-camera"></i>
+                </span>
                 <p>No Photos yet</p>
                 <p className="dashboard-no-photo-cta">Click to add one</p>
               </div>
@@ -174,7 +176,7 @@ function Dashboard() {
               <span className="stat-value">
                 {stats.totalCardioMinutes.toLocaleString()}
               </span>
-              <span className='stat-label'>Cardio Minutes</span>
+              <span className="stat-label">Cardio Minutes</span>
             </div>
           </div>
         </>

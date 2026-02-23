@@ -171,7 +171,7 @@ function Calendar() {
           onClick={goToPrevMonth}
           disabled={!canGoPrev}
         >
-          ‹
+          <i className="fa-solid fa-chevron-left"></i>
         </button>
         <h2 className="cal-month-title">{monthName}</h2>
         <button
@@ -179,7 +179,7 @@ function Calendar() {
           onClick={goToNextMonth}
           disabled={!canGoNext}
         >
-          ›
+          <i className="fa-solid fa-chevron-right"></i>
         </button>
       </div>
 
@@ -221,7 +221,11 @@ function Calendar() {
                 {cell.hasWorkout && <span className="cal-workout-dot" />}
 
                 {/* Camera icon if photo exists, will use a fontawesome one later*/}
-                {cell.hasPhoto && <span className="cal-photo-icon">📷</span>}
+                {cell.hasPhoto && (
+                  <span className="cal-photo-icon">
+                    <i className="fa-solid fa-camera"></i>
+                  </span>
+                )}
               </div>
             );
           })}
@@ -264,7 +268,9 @@ function Calendar() {
                   className="cal-detail-no-photo"
                   onClick={() => navigate('/photos')}
                 >
-                  <span className="cal-no-photo-icon">📷</span>
+                  <span className="cal-no-photo-icon">
+                    <i className="fa-solid fa-camera"></i>
+                  </span>
                   <p>No photo for this day</p>
                   <p className="cal-no-photo-cta">Click to add one</p>
                 </div>
